@@ -1,5 +1,5 @@
-import { React, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { React, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useGetPodcastByIdQuery } from "../services/podcasts";
 import Season from "../components/Season";
@@ -8,7 +8,8 @@ import { setSeasonSelected } from "../slices/seasonSlice";
 function SeasonPage() {
   const { showId, seasonId } = useParams();
   const { data, isLoading } = useGetPodcastByIdQuery(showId);
-  let seasonData;
+  const [seasonSelect, setSeasonSelect] = useState(seasonId);
+
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
@@ -19,16 +20,11 @@ function SeasonPage() {
       </option>
     );
   });
-  console.log(data);
-  //   useEffect(() => {
-  //     seasonData = data.seasons[seasonId];
-  //   }, []);
 
-  //   setSeasonSelected(seasonId);
-  //   const handleSeasonSelect = (event) => {
-  //     const optionValue = event.target.value;
-  //     setSeasonSelected(optionValue);
-  //   };
+  const handleSeasonSelect = (event) => {
+    const optionValue = event.target.value;
+    setSeasonSelect(optionValue);
+  };
 
   return (
     <>
@@ -49,7 +45,7 @@ function SeasonPage() {
         </select>
       </div>
       <Season
-        data={data.seasons[seasonChosen - 1]}
+        data={data.seasons[seasonSelect - 1]}
         showName={data.title.replaceAll(" ", "-")}
       />
     </>

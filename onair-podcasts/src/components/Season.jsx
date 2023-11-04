@@ -13,9 +13,9 @@ function Season(props) {
 
   const [isFavourite, setIsFavourite] = React.useState(false);
 
-  // function handleClick(props) {
-  //   setWhatIsPlaying(props);
-  // }
+  function handleClick(props) {
+    console.log("Clicked");
+  }
 
   const toggleFavourite = () => {
     console.log("Toggled");
