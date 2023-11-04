@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const audioSlice = createSlice({
-    'name': 'audio',
+    name: 'audio',
     initialState: {
         isPlaying: {value: false},
         whatIsPlaying: {title: "", description: "", episode: 0, file: "",}

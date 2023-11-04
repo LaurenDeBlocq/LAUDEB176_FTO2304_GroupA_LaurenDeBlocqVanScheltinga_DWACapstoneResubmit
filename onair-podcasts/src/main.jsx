@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./index.css";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
@@ -17,27 +18,26 @@ export const supabase = createClient(
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <HomePage supabase={supabase} />,
-    element: <App supabase={supabase} />,
+    element: <App store={store} supabase={supabase} />,
     errorElement: <ErrorPage />,
-    // children: [
-    //   {
-    //     path: "/",
-    //     element: <HomePage />,
-    //   },
-    //   {
-    //     path: "show/:showId",
-    //     element: <Show />,
-    //   },
-    //   {
-    //     path: "show/:showId/season/:seasonId",
-    //     element: <SeasonPage />,
-    //   },
-    //   {
-    //     path: "favourites/",
-    //     element: <FavouritesPage />,
-    //   },
-    // ],
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      //   {
+      //     path: "show/:showId",
+      //     element: <Show />,
+      //   },
+      //   {
+      //     path: "show/:showId/season/:seasonId",
+      //     element: <SeasonPage />,
+      //   },
+      //   {
+      //     path: "favourites/",
+      //     element: <FavouritesPage />,
+      //   },
+    ],
   },
 ]);
 
@@ -66,7 +66,11 @@ function Authentication() {
       />
     );
   } else {
-    return <RouterProvider router={router} />;
+    return (
+      <Provider>
+        <RouterProvider router={router} />
+      </Provider>
+    );
   }
 }
 
