@@ -10,6 +10,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import ErrorPage from "./error-page";
 import HomePage from "./routes/HomePage.jsx";
 import { supabase } from "./client.js";
+import SeasonPage from "./routes/SeasonPage.jsx";
 import Show from "./routes/ShowPage.jsx";
 
 const router = createBrowserRouter([
@@ -26,10 +27,10 @@ const router = createBrowserRouter([
         path: "show/:showId",
         element: <Show />,
       },
-      //   {
-      //     path: "show/:showId/season/:seasonId",
-      //     element: <SeasonPage />,
-      //   },
+      {
+        path: "show/:showId/season/:seasonId",
+        element: <SeasonPage />,
+      },
       //   {
       //     path: "favourites/",
       //     element: <FavouritesPage />,
