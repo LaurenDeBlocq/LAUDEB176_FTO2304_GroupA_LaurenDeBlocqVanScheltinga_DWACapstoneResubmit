@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
 import { hasLoaded, loadShow } from "../slices/showsSlice";
+import { useGetPodcastsQuery } from "../services/podcasts";
+import { useDispatch } from "react-redux";
+import CarouselPage from "../components/Carousel";
 
 function HomePage() {
-  const [data, setData] = useState([]);
+  const { data, isLoading } = useGetPodcastsQuery();
+  const dispatch = useDispatch;
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
 
-  useEffect(() => {
-    fetch("https://podcast-api.netlify.app/shows")
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-        setLoadedShows(data);
-      })
-      .catch((error) => console.error("Error:", error));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadShow(data));
+  // }, []);
+
+  const previewCards = data.map((show) => {
+    return <Card key={show.id} showData={show} />;
+  });
+  const carouselDetails = [
+    data[Math.floor(Math.random() * data.length)],
+    data[Math.floor(Math.random() * data.length)],
+    data[Math.floor(Math.random() * data.length)],
+  ];
+
+  return (
+    <>
+      <CarouselPage details={carouselDetails} />
+      {previewCards}
+    </>
+  );
 }
 
 export default HomePage;
