@@ -4,6 +4,12 @@ body {
   min-width: 375px;
 }
 
+/* ---------- Authentication styling ---------- */
+.auth {
+  max-width: 800px;
+  margin: auto;
+}
+
 /* ---------- Header styling ---------- */
 
 .header {
