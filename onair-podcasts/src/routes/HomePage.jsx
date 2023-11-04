@@ -7,7 +7,7 @@ import CarouselPage from "../components/Carousel";
 
 function HomePage() {
   const { data, isLoading } = useGetPodcastsQuery();
-  const dispatch = useDispatch;
+  // const dispatch = useDispatch;
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
