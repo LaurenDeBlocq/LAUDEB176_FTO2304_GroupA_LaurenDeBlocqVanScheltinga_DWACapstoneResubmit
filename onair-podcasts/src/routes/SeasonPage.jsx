@@ -46,6 +46,7 @@ function SeasonPage() {
       </div>
       <Season
         data={data.seasons[seasonSelect - 1]}
+        podcast_id={showId}
         showName={data.title.replaceAll(" ", "-")}
       />
     </>

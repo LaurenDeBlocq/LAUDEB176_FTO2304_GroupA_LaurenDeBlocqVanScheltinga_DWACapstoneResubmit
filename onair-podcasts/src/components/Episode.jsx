@@ -3,6 +3,8 @@ import React from "react";
 import favourite from "../assets/images/on.png";
 
 export default function Episode(props) {
+
+
   return (
     <div className="">
       <div
@@ -22,9 +24,10 @@ export default function Episode(props) {
       <div className="episode-preview--fav">
         <img
           src={favourite}
-          onClick={props.toggleFavourite}
+          onClick={ ()=>{props.toggleFavourite(props.data.episode, props.isFavourite)}  }
           className="episode-preview--fav-img"
         />
+          {props.isFavourite? 'Favourite':'not Favourite'}
       </div>
     </div>
   );

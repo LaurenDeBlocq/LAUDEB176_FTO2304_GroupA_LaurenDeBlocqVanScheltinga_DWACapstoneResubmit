@@ -4,6 +4,10 @@ import { hasLoaded, loadShow } from "../slices/showsSlice";
 import { useGetPodcastsQuery } from "../services/podcasts";
 import { useDispatch } from "react-redux";
 import CarouselPage from "../components/Carousel";
+import { supabase } from "../client.js";
+
+const { data: { user } } = await supabase.auth.getUser()
+console.log(user)
 
 function HomePage() {
   const { data, isLoading } = useGetPodcastsQuery();
