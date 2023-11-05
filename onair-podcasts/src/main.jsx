@@ -12,6 +12,7 @@ import HomePage from "./routes/HomePage.jsx";
 import { supabase } from "./client.js";
 import SeasonPage from "./routes/SeasonPage.jsx";
 import Show from "./routes/ShowPage.jsx";
+import FavouritesPage from "./routes/FavouritesPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
         path: "show/:showId/season/:seasonId",
         element: <SeasonPage />,
       },
-      //   {
-      //     path: "favourites/",
-      //     element: <FavouritesPage />,
-      //   },
+      {
+        path: "favourites/",
+        element: <FavouritesPage />,
+      },
     ],
   },
 ]);

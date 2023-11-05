@@ -1,12 +1,10 @@
 import React from "react";
-// import notFavourite from "../images/off.png";
 import favourite from "../assets/images/on.png";
+import notFavourite from "../assets/images/off.png";
 
 export default function Episode(props) {
-
-
   return (
-    <div className="">
+    <div className="episode-card">
       <div
         onClick={() => {
           props.handleClick(props.data);
@@ -23,11 +21,13 @@ export default function Episode(props) {
       </div>
       <div className="episode-preview--fav">
         <img
-          src={favourite}
-          onClick={ ()=>{props.toggleFavourite(props.data.episode, props.isFavourite)}  }
+          src={props.isFavourite ? favourite : notFavourite}
+          onClick={() => {
+            props.toggleFavourite(props.data.episode, props.isFavourite);
+          }}
           className="episode-preview--fav-img"
         />
-          {props.isFavourite? 'Favourite':'not Favourite'}
+        {props.isFavourite ? "Favourite" : "not Favourite"}
       </div>
     </div>
   );

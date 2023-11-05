@@ -13,40 +13,50 @@ function Season(props) {
   //   file: "",
   // });
   const { data, isLoading, refetch } = useGetFavouritesQuery();
-  console.log(props)
-  console.log(data)
+  console.log(props);
+  console.log(data);
 
   function handleClick(props) {
     console.log("Clicked");
   }
 
   const toggleFavourite = (episode, isFavourite) => {
-    console.log(isFavourite)
-    isFavourite? asyncRemoveFavourite(episode): asyncAddFavourite(episode)
+    console.log(isFavourite, episode);
+    isFavourite ? asyncRemoveFavourite(episode) : asyncAddFavourite(episode);
   };
   const asyncAddFavourite = async (episode) => {
-    const { error } =  await supabase
-        .from('favourites')
-        .insert([
-          { podcast_id: props.podcast_id, season: props.data.season, episode:episode },
-        ])
-    refetch()
-  }
+    console.log(props.data.episodes[episode - 1].title);
+    const { error } = await supabase.from("favourites").insert([
+      {
+        podcast_id: props.podcast_id,
+        season: props.data.season,
+        episode: episode,
+        episode_title: props.data.episodes[episode - 1].title,
+        img_file: props.data.image,
+        audio_file: props.data.episodes[episode - 1].file,
+        podcast_name: props.showName,
+      },
+    ]);
+    refetch();
+  };
   const asyncRemoveFavourite = async (episode) => {
-    const { error } =  await supabase
-        .from('favourites')
-        .delete()
-        .eq('podcast_id',props.podcast_id)
-        .eq('season',props.data.season)
-        .eq('episode',episode)
-    refetch()
-  }
+    const { error } = await supabase
+      .from("favourites")
+      .delete()
+      .eq("podcast_id", props.podcast_id)
+      .eq("season", props.data.season)
+      .eq("episode", episode);
+    refetch();
+  };
   const isFavourite = (episode) => {
-
-    return data?.some(item=> {
-      return (item.season === props.data.season) && (item.episode === episode.episode) && (item.podcast_id === parseInt(props.podcast_id))
-    })
-  }
+    return data?.some((item) => {
+      return (
+        item.season === props.data.season &&
+        item.episode === episode.episode &&
+        item.podcast_id === parseInt(props.podcast_id)
+      );
+    });
+  };
   // useEffect(() => {
   //   setIsPlaying(true);
   // }, [whatIsPlaying]);
