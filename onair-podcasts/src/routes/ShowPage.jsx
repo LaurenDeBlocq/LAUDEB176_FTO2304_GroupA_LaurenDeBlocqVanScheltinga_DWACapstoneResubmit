@@ -11,7 +11,6 @@ function Show() {
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
-  console.log("I am running");
   const seasonCards = data.seasons.map((season) => {
     return <SeasonCard data={season} key={season.season} />;
   });

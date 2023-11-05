@@ -12,7 +12,6 @@ function HomePage() {
   const [filterType, setFilterType] = React.useState("Default");
   React.useEffect(() => {
     if (data) {
-      console.log(data);
       setLoadedShows(data);
     }
   }, [data]);

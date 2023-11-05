@@ -12,7 +12,6 @@ const audioSlice = createSlice({
             state.isPlaying = true
         }, 
         setWhatIsPlaying: (state, action) => {
-            console.log(action.payload)
             state.whatIsPlaying = action.payload
         }
     }
