@@ -4,13 +4,15 @@ const audioSlice = createSlice({
     name: 'audio',
     initialState: {
         isPlaying: {value: false},
-        whatIsPlaying: {title: "", description: "", episode: 0, file: "",}
+        whatIsPlaying: {title: "", episode: 0, season:0, podcast_id:0, file: "",timestamp:0}
+
     },
-    reducer: {
+    reducers: {
         startPlaying: (state) => {
             state.isPlaying = true
         }, 
         setWhatIsPlaying: (state, action) => {
+            console.log(action.payload)
             state.whatIsPlaying = action.payload
         }
     }

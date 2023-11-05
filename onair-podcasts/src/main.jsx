@@ -32,10 +32,10 @@ const router = createBrowserRouter([
         path: "show/:showId/season/:seasonId",
         element: <SeasonPage />,
       },
-      {
-        path: "favourites/",
-        element: <FavouritesPage />,
-      },
+        {
+          path: "favourites/",
+          element: <FavouritesPage />,
+        },
     ],
   },
 ]);

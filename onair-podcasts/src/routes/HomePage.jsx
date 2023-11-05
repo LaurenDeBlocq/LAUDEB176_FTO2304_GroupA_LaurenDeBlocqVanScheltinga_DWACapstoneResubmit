@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Card from "../components/Card";
-import { hasLoaded, loadShow } from "../slices/showsSlice";
 import { useGetPodcastsQuery } from "../services/podcasts";
-import { useDispatch } from "react-redux";
 import CarouselPage from "../components/Carousel";
-import { supabase } from "../client.js";
-
-const { data: { user } } = await supabase.auth.getUser()
-console.log(user)
 
 function HomePage() {
   const { data, isLoading } = useGetPodcastsQuery();
-  // const dispatch = useDispatch;
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
-
-  // useEffect(() => {
-  //   dispatch(loadShow(data));
-  // }, []);
-
   const previewCards = data.map((show) => {
     return <Card key={show.id} showData={show} />;
   });

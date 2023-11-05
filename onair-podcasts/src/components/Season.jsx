@@ -2,22 +2,20 @@ import React, { useEffect } from "react";
 import Episode from "./Episode";
 import { useGetFavouritesQuery } from "../services/database.js";
 import { supabase } from "../client.js";
+import { setWhatIsPlaying, startPlaying } from "../slices/audioSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 // import AudioPlayer from "./AudioPlayer";
 
 function Season(props) {
-  // const [isPlaying, setIsPlaying] = React.useState(false);
-  // const [whatIsPlaying, setWhatIsPlaying] = React.useState({
-  //   title: "",
-  //   description: "",
-  //   episode: 0,
-  //   file: "",
-  // });
   const { data, isLoading, refetch } = useGetFavouritesQuery();
-  console.log(props);
-  console.log(data);
-
-  function handleClick(props) {
-    console.log("Clicked");
+  const dispatch = useDispatch()
+  function handleClick(episode) {
+    dispatch(setWhatIsPlaying({
+      ...episode, ...{
+        season: props.data.season,
+        podcast_id: props.podcast_id
+      }
+    } ))
   }
 
   const toggleFavourite = (episode, isFavourite) => {
@@ -41,19 +39,19 @@ function Season(props) {
   };
   const asyncRemoveFavourite = async (episode) => {
     const { error } = await supabase
-      .from("favourites")
-      .delete()
-      .eq("podcast_id", props.podcast_id)
-      .eq("season", props.data.season)
-      .eq("episode", episode);
+        .from("favourites")
+        .delete()
+        .eq("podcast_id", props.podcast_id)
+        .eq("season", props.data.season)
+        .eq("episode", episode);
     refetch();
   };
   const isFavourite = (episode) => {
     return data?.some((item) => {
       return (
-        item.season === props.data.season &&
-        item.episode === episode.episode &&
-        item.podcast_id === parseInt(props.podcast_id)
+          item.season === props.data.season &&
+          item.episode === episode.episode &&
+          item.podcast_id === parseInt(props.podcast_id)
       );
     });
   };
@@ -66,16 +64,16 @@ function Season(props) {
   // }, [props.data.season]);
   const episodePreviews = props.data.episodes.map((episode) => {
     return (
-      <Episode
-        data={episode}
-        key={episode.episode}
-        image={props.data.image}
-        showName={props.showName}
-        seasonNum={props.data.title.replace(" ", "-")}
-        handleClick={handleClick}
-        toggleFavourite={toggleFavourite}
-        isFavourite={isFavourite(episode)}
-      />
+        <Episode
+            data={episode}
+            key={episode.episode}
+            image={props.data.image}
+            showName={props.showName}
+            seasonNum={props.data.title.replace(" ", "-")}
+            handleClick={handleClick}
+            toggleFavourite={toggleFavourite}
+            isFavourite={isFavourite(episode)}
+        />
     );
   });
 

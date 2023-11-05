@@ -21,9 +21,13 @@ export const databaseApi = createApi({
         getFavourites: builder.query({
             query: () => `favourites?select=*&user_id=eq.${user.id}`,
         }),
+        getAudioSession: builder.query({
+            query: () => `audio_session?select=*&user_id=eq.${user.id}`,
+        }),
+
     }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetFavouritesQuery } = databaseApi
+export const { useGetFavouritesQuery, useGetAudioSessionQuery } = databaseApi
