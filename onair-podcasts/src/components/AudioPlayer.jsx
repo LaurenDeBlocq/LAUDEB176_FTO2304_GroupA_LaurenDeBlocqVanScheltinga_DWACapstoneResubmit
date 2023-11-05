@@ -13,7 +13,7 @@ export default function AudioPlayer() {
   );
   const episode = useSelector((state) => state.audio.whatIsPlaying);
   const dispatch = useDispatch();
-  const { data, isSuccess } = useGetAudioSessionQuery({
+  const { data, isSuccess } = useGetAudioSessionQuery(user.id,{
     refetchOnMountOrArgChange: true,
   });
 

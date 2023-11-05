@@ -75,7 +75,7 @@ function Authentication() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <div className="auth">
+    <div>
       <Authentication />
     </div>
   </React.StrictMode>

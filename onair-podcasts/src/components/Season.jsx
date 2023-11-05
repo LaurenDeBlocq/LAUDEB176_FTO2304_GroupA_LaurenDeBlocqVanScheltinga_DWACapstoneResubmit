@@ -4,10 +4,11 @@ import { useGetFavouritesQuery } from "../services/database.js";
 import { supabase } from "../client.js";
 import { setWhatIsPlaying, startPlaying } from "../slices/audioSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-
+// import AudioPlayer from "./AudioPlayer";
+const user = await supabase.auth.getUser()
 function Season(props) {
-  const { data, refetch } = useGetFavouritesQuery();
-  const dispatch = useDispatch();
+  const { data, refetch } = useGetFavouritesQuery(user.data.user.id);
+  const dispatch = useDispatch()
   function handleClick(episode) {
     dispatch(
       setWhatIsPlaying({
