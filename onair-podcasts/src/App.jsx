@@ -9,14 +9,14 @@ function App() {
   const { data, error, loading, isError, isSuccess } = useGetPodcastsQuery();
 
   return (
-    <>
+    <div className="app">
       <Header />
       <div className="outlet">
         <Outlet />
       </div>
-       <AudioPlayer  />
+      <AudioPlayer />
       <Footer />
-    </>
+    </div>
   );
 }
 

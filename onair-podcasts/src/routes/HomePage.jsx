@@ -12,17 +12,23 @@ function HomePage() {
   const [filterType, setFilterType] = React.useState("Default");
   React.useEffect(() => {
     if (data) {
+      console.log(data);
       setLoadedShows(data);
     }
   }, [data]);
 
   const filterShows = () => {
-    const fuse = new Fuse(data, {
+    if (!data) {
+      return;
+    }
+    const fuse = new Fuse(JSON.parse(JSON.stringify(data)), {
       includeScore: true,
       keys: ["title"],
     });
-    let filtered = searchTerm !== "" ? fuse.search(searchTerm) : data;
-
+    let filtered =
+      searchTerm !== ""
+        ? fuse.search(searchTerm)
+        : JSON.parse(JSON.stringify(data));
     if (filterType === "Default" && searchTerm !== "") {
       filtered.sort((a, b) => {
         b.score - a.score;
@@ -71,21 +77,19 @@ function HomePage() {
   };
 
   React.useEffect(() => {
-    if (searchTerm && filterType) {
-      filterShows();
-    }
+    filterShows();
   }, [searchTerm, filterType]);
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
 
+  let filterSearchTimeout;
   const handleFilterSearch = (event) => {
-    const filterSearch = setTimeout(() => {
-      console.log("wait");
+    clearTimeout(filterSearchTimeout);
+    filterSearchTimeout = setTimeout(() => {
       setSearchTerm(event.target.value);
     }, 300);
-    return () => clearTimeout(filterSearch);
   };
 
   const handleFilterSelect = (event) => {
